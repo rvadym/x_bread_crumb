@@ -8,9 +8,35 @@
  */
 namespace x_bread_crumb;
 class View_BC extends \View {
-    public $route = null;
+    public $routes = null;
     function init() {
         parent::init();
+        $this->cook();
+    }
+    function cook() {
+        $count = 0;
+        $length = count($this->routes);
+        $html = '';
+        foreach ($this->routes as $place) {
+            if ($count > 0) {
+                $html .= '&nbsp;>&nbsp;';
+            }
+            if ($count == ($length-1)) {
+                // regular text
+                $html .= $place['name'];
+            } else {
+                // link
+                if (!$place['url']) {
+                    $place['url'] = '';
+                }
+                if (!$place['args']) {
+                    $place['args'] = array();
+                }
+                $html = $html.'<a href="'.$this->api->url($place['url'],$place['args']).'">'.$place['name'].'</a>';
+            }
+            $count++;
+        }
+        $this->setHTML($html);
     }
     function render(){
 //   		$this->js(true)
