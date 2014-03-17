@@ -19,13 +19,11 @@ class View_BC extends \View {
         $html = '';
         foreach ($this->routes as $place) {
             if ($count > 0) {
-                $html .= '&nbsp;';
 	            if($place['separator']){
 		            $html .= $place['separator'];
 	            }else{
-		            $html .= '>';
+		            $html .= '&nbsp;>&nbsp;';
 	            }
-                $html .= '&nbsp;';
             }
             if ($count == ($length-1)) {
                 // regular text
