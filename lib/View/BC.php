@@ -19,7 +19,11 @@ class View_BC extends \View {
         $html = '';
         foreach ($this->routes as $place) {
             if ($count > 0) {
-                $html .= '&nbsp;>&nbsp;';
+	            if($place['separator']){
+		            $html .= $place['separator'];
+	            }else{
+		            $html .= '&nbsp;>&nbsp;';
+	            }
             }
             if ($count == ($length-1)) {
                 // regular text
@@ -32,7 +36,7 @@ class View_BC extends \View {
                 if (!$place['args']) {
                     $place['args'] = array();
                 }
-                $html = $html.'<a href="'.$this->api->url($place['url'],$place['args']).'">'.$place['name'].'</a>';
+                $html = $html.'<a href="'.$this->api->url($place['url'],$place['args']).'" class="'.$place['class'].'">'.$place['name'].'</a>';
             }
             $count++;
         }
